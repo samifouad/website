@@ -1,0 +1,28 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BloxGrid from '../components/BloxGrid.svelte';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { ViewTransitions } from 'astro:transitions';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('projects')
+
+console.log(posts[0].id);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<ViewTransitions />
+	</head>
+	<body>
+		<Header />
+		<main transition:animate="fade" class="pt-0 pb-0 w-full m-auto max-w-full">
+			<BloxGrid />
+		</main>
+		<Footer />
+	</body>
+</html>
