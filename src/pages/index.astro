@@ -8,8 +8,6 @@ import { ViewTransitions } from 'astro:transitions';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('projects')
-
-console.log(posts[0].id);
 ---
 
 <!doctype html>
@@ -21,7 +19,7 @@ console.log(posts[0].id);
 	<body class="bg-white">
 		<Header />
 		<main transition:animate="fade" class="pt-0 pb-0 w-full m-auto max-w-full bg-white">
-			<BloxGrid />
+			<BloxGrid projects={ posts } client:load />
 		</main>
 		<Footer />
 	</body>

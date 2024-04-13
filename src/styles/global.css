@@ -5,6 +5,7 @@
  */
 
 :root {
+	--background: #f8f8f9;
 	--accent: #2337ff;
 	--accent-dark: #000d8a;
 	--black: 15, 18, 25;
@@ -40,6 +41,7 @@ body {
 	color: rgb(var(--gray-dark));
 	font-size: 20px;
 	line-height: 1.7;
+	background-color: var(--background);
 }
 main {
 	width: 720px;

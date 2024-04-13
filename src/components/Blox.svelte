@@ -7,7 +7,7 @@
 </script>
 
 {#if type === 'small'}
-	<div class="item rounded-md" style="background: {colour}">
+	<div class="item rounded-[18px]" style="background: {colour}">
 		<a href="https://{footer}">
 		{#if tag && name && footer}
 			<div class="tag">{tag}</div>
@@ -19,7 +19,7 @@
 {/if}
 
 {#if type === 'vertical'}
-	<div class="item vert rounded-md" style="background: {colour}">
+	<div class="item vert rounded-[18px]" style="background: {colour}">
 		<a href="https://{footer}">
 		{#if tag && name && footer}
 			<div class="tag">{tag}</div>
@@ -31,7 +31,7 @@
 {/if}
 
 {#if type === 'hero'}
-		<div class="item hero rounded-md" style="background: {colour}">
+		<div class="item hero rounded-[18px]" style="background: {colour}">
 			<a href="https://{footer}">
 			{#if tag && name && footer}
 				<div class="tag">{tag}</div>
@@ -121,8 +121,8 @@
 		text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
 		font-size: 0.8rem;
 		height: 1.5rem;
-		padding-top: 5px;
-		padding-left: 8px;
+		padding-top: 12px;
+		padding-left: 16px;
 		opacity: 0.80;
 	}
 
