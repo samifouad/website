@@ -5,8 +5,12 @@ import tailwind from "@astrojs/tailwind";
 import svelte from "@astrojs/svelte";
 import icon from "astro-icon";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
-  integrations: [mdx(), sitemap(), tailwind(), svelte(), icon()]
+  site: 'https://samifouad.com',
+  integrations: [mdx(), sitemap(), tailwind(), svelte(), icon()],
+  output: "server",
+  adapter: cloudflare()
 });
