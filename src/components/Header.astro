@@ -3,7 +3,7 @@ import HeaderLink from './HeaderLink.astro';
 import { Image } from 'astro:assets';
 import pfp from "../../public/apple-touch-icon.png"
 ---
-<header class="h-[15%]" transition:persist>
+<header class="h-[15%]">
     <nav>
         <div class="ml-[3%] text-sm flex items-center">
             <a href="/" title="Sami Fouad" class="flex items-center">
@@ -13,7 +13,7 @@ import pfp from "../../public/apple-touch-icon.png"
         </div>
         <!-- Keeping original internal links styling -->
         <div class="internal-links">
-            <HeaderLink href="/projects">Projects</HeaderLink>
+            <HeaderLink href="/">Projects</HeaderLink>
             <HeaderLink href="/topics">Topics</HeaderLink>
             <HeaderLink href="/blog">Blog</HeaderLink>
             <HeaderLink href="/about">About</HeaderLink>

@@ -5,7 +5,6 @@ import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
-import VtBotDebug from 'astro-vtbot/components/VtBotDebug.astro';
 import { ViewTransitions } from 'astro:transitions';
 
 const posts = (await getCollection('blog')).sort(
@@ -17,7 +16,6 @@ const posts = (await getCollection('blog')).sort(
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<VtBotDebug />
 		<ViewTransitions />
 		<style>
 			main {
