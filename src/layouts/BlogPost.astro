@@ -57,7 +57,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	</head>
 
 	<body class="w-full bg-white">
-		<Header />
+		<Header transition:persist />
 		<main transition:animate="fade">
 			<article>
 				<div class="hero-image">
