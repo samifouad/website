@@ -24,7 +24,7 @@
 
 <div class="wrapper">
   {#each projects as { data }, i}
-    <Blox type="{ data.size }" tag="{ data.code }" name="{ data.tag }" footer="{ data.title }" colour="{ data.colour }" />
+    <Blox type="{ data.size }" tag="{ data.code }" name="{ data.tag }" footer="{ data.title }" url="{ data.url }" colour="{ data.colour }" />
   {/each}
 </div>
 

@@ -1,18 +1,19 @@
-<script lang="ts">
-	 export let type: string | null;
-	 export let tag: string | null;
-	 export let name: string | null;
-	 export let footer: string | null;
-	 export let colour: string | null;
+<script>
+	 export let type
+	 export let tag
+	 export let name
+	 export let footer
+	 export let url
+	 export let colour
 </script>
 
 {#if type === 'small'}
 	<div class="item rounded-[18px]" style="background: {colour}">
-		<a href="https://{footer}">
+		<a href="/projects/{url}">
 		{#if tag && name && footer}
 			<div class="tag">{tag}</div>
 			<div class="bname" style="font-size: 38px;">{name}</div>
-			<div class="bfooter"><a href="https://{footer}">{footer}</a></div>
+			<div class="bfooter">{footer}</div>
 		{/if}
 		</a>
 	</div>
@@ -20,11 +21,11 @@
 
 {#if type === 'vertical'}
 	<div class="item vert rounded-[18px]" style="background: {colour}">
-		<a href="https://{footer}">
+		<a href="/projects/{url}">
 		{#if tag && name && footer}
 			<div class="tag">{tag}</div>
 			<div class="bname" style="font-size: 52px;">{name}</div>
-			<div class="bfooter"><a href="https://{footer}">{footer}</a></div>
+			<div class="bfooter">{footer}</div>
 		{/if}
 		</a>
 	</div>
@@ -32,7 +33,7 @@
 
 {#if type === 'hero'}
 		<div class="item hero rounded-[18px]" style="background: {colour}">
-			<a href="https://{footer}">
+			<a href="/projects/{url}">
 			{#if tag && name && footer}
 				<div class="tag">{tag}</div>
 				<div class="bname" style="font-size: 96px;">{name}</div>
