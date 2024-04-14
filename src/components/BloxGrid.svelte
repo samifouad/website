@@ -23,8 +23,8 @@
 </script>
 
 <div class="wrapper">
-  {#each projects as { data }, i}
-    <Blox type="{ data.size }" tag="{ data.code }" name="{ data.tag }" footer="{ data.title }" url="{ data.url }" colour="{ data.colour }" />
+  {#each projects as { size, code, tag, title, url, colour }}
+    <Blox type="{ size }" tag="{ code }" name="{ tag }" footer="{ title }" url="{ url }" colour="{ colour }" />
   {/each}
 </div>
 

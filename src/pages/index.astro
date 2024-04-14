@@ -2,12 +2,9 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import BloxGrid from '../components/BloxGrid.svelte';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { ViewTransitions } from 'astro:transitions';
-import { getCollection } from 'astro:content';
-
-const posts = await getCollection('projects')
+import Projects from './projects.astro'
 ---
 
 <!doctype html>
@@ -23,10 +20,10 @@ const posts = await getCollection('projects')
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="theme-color" content="#ffffff">
 	</head>
-	<body class="bg-white">
+	<body class="w-full bg-white">
 		<Header />
-		<main transition:animate="fade" class="pt-0 pb-0 w-full m-auto max-w-full bg-white">
-			<BloxGrid projects={ posts } client:load />
+		<main transition:animate="fade" class="p-0 w-full m-auto max-w-full bg-white">
+			<Projects inline=true />
 		</main>
 		<Footer />
 	</body>
