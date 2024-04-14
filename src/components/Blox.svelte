@@ -14,7 +14,6 @@
 {/if}
 
 {#if type === 'small'}
-	<div class="item rounded-[18px]" style="background: {colour}">
 		<a href="/projects/{url}">
 		{#if tag && name && footer}
 			<div class="tag">{tag}</div>
@@ -22,11 +21,9 @@
 			<div class="bfooter">{footer}</div>
 		{/if}
 		</a>
-	</div>
 {/if}
 
 {#if type === 'vertical'}
-	<div class="item vert rounded-[18px]" style="background: {colour}">
 		<a href="/projects/{url}">
 		{#if tag && name && footer}
 			<div class="tag">{tag}</div>
@@ -34,11 +31,9 @@
 			<div class="bfooter">{footer}</div>
 		{/if}
 		</a>
-	</div>
 {/if}
 
 {#if type === 'hero'}
-		<div class="item hero rounded-[18px]" style="background: {colour}">
 			<a href="/projects/{url}">
 			{#if tag && name && footer}
 				<div class="tag">{tag}</div>
@@ -46,80 +41,78 @@
 				<div class="bfooter">{footer}</div>
 			{/if}
 			</a>
-		</div>
 {/if}
 
 
 <style>
 	@media only screen and (max-width: 480px) {
-		.item {
-			position: relative;
-			color: white;
-			background: #f9f9f9;
-			padding: 0px;
-		}
-		.item:nth-child(even) {
-			background: #ececec;
-		}
-		.item:hover {
-			cursor: pointer;
-		}
-		.hero {
-			grid-column: span 2;
-			grid-row: span 2;
-		}
-		.vert {
-			grid-column: span 1;
-			grid-row: span 2;
-		}
+	.item {
+		position: relative;
+		color: white;
+		background: #f9f9f9;
+		padding: 0px;
 	}
-	@media only screen and (min-width: 481px) {
-		.item {
-			position: relative;
-			color: white;
-			background: #f9f9f9;
-			padding: 0px;
-		}
-		.item:nth-child(even) {
-			background: #ececec;
-		}
-		.item:hover {
-			cursor: pointer;
-		}
-		.hero {
-			grid-column: span 2;
-			grid-row: span 2;
-		}
-		.vert {
-			grid-column: span 1;
-			grid-row: span 2;
-		}
+	.item:nth-child(even) {
+		background: #ececec;
 	}
-	@media only screen and (min-width: 630px) {
-		.item {
-			position: relative;
-			color: white;
-			padding: 0px;
-			scale: 1.0;
-			text-align: center;
-  			transition-duration: 0.2s;
-		}
-		.item .bname {
-			text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
-		}
-		.item:hover {
-			cursor: pointer;
-		}
-		.hero {
-			grid-column: span 2;
-			grid-row: span 2;
-		}
-		.vert {
-			grid-column: span 1;
-			grid-row: span 2;
-		}
+	.item:hover {
+		cursor: pointer;
 	}
-
+	.hero {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+	.vert {
+		grid-column: span 1;
+		grid-row: span 2;
+	}
+}
+@media only screen and (min-width: 481px) {
+	.item {
+		position: relative;
+		color: white;
+		background: #f9f9f9;
+		padding: 0px;
+	}
+	.item:nth-child(even) {
+		background: #ececec;
+	}
+	.item:hover {
+		cursor: pointer;
+	}
+	.hero {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+	.vert {
+		grid-column: span 1;
+		grid-row: span 2;
+	}
+}
+@media only screen and (min-width: 630px) {
+	.item {
+		position: relative;
+		color: white;
+		padding: 0px;
+		scale: 1.0;
+		text-align: center;
+		transition-duration: 0.2s;
+	}
+	.item .bname {
+		text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+	}
+	.item:hover {
+		cursor: pointer;
+	}
+	.hero {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+	.vert {
+		grid-column: span 1;
+		grid-row: span 2;
+	}
+}
 	.tag {
 		display: block;
 		width: 100%;

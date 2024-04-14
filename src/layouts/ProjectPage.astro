@@ -20,12 +20,7 @@ const { title, url, code, tag, colour } = Astro.props;
 
 	<body class="w-full bg-white">
 		<Header />
-		<main transition:animate="fade" class="h-fit">
-				<div class="w-full h-fit">
-					<div class="w-[80px] h-32 float-left" transition:name={ url }><Blox type="profile" tag={ code } name={ tag } footer={ title } colour={ colour } /></div>
-					<h1 class="float-left">{title}</h1>
-				</div>
-		</main>
+		<slot />
 		<Footer />
 	</body>
 </html>

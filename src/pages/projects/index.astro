@@ -17,17 +17,124 @@ let projects = posts.map(post => post.data)
 shuffle(projects)
 ---
 
+<style>
+
+@media only screen and (max-width: 480px) {
+    .wrapper {
+      width: 98%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 150px;
+      grid-gap: 8px;
+      grid-auto-flow: dense;
+    }
+  }
+
+  @media only screen and (min-width: 481px) {
+    .wrapper {
+      width: 98%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat( auto-fit, minmax(200px, 3fr) );
+      grid-auto-rows: 150px;
+      grid-gap: 8px;
+      grid-auto-flow: dense;
+    }
+  }
+
+  @media only screen and (min-width: 630px) {
+    .wrapper {
+      width: 98%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat( auto-fit, minmax(200px, 3fr) );
+      grid-auto-rows: 150px;
+      grid-gap: 8px;
+      grid-auto-flow: dense;
+    }
+  }
+@media only screen and (max-width: 480px) {
+	.item {
+		position: relative;
+		color: white;
+		background: #f9f9f9;
+		padding: 0px;
+	}
+	.item:nth-child(even) {
+		background: #ececec;
+	}
+	.item:hover {
+		cursor: pointer;
+	}
+	.hero {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+	.vert {
+		grid-column: span 1;
+		grid-row: span 2;
+	}
+}
+@media only screen and (min-width: 481px) {
+	.item {
+		position: relative;
+		color: white;
+		background: #f9f9f9;
+		padding: 0px;
+	}
+	.item:nth-child(even) {
+		background: #ececec;
+	}
+	.item:hover {
+		cursor: pointer;
+	}
+	.hero {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+	.vert {
+		grid-column: span 1;
+		grid-row: span 2;
+	}
+}
+@media only screen and (min-width: 630px) {
+	.item {
+		position: relative;
+		color: white;
+		padding: 0px;
+		scale: 1.0;
+		text-align: center;
+		transition-duration: 0.2s;
+	}
+	.item .bname {
+		text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+	}
+	.item:hover {
+		cursor: pointer;
+	}
+	.hero {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+	.vert {
+		grid-column: span 1;
+		grid-row: span 2;
+	}
+}
+</style>
+
 {inline ? 
     <div class="wrapper">
         {projects.map(project => (
-            <Blox type={project.size} tag={project.code} name={project.tag} footer={project.title} url={project.url} colour={project.colour} transition:name={project.url} />
+            <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }} transition:name={project.url}><Blox type={project.size} tag={project.code} name={project.tag} footer={project.title} url={project.url} colour={project.colour} transition:name={project.url} /></div>
         ))}
     </div>
     :
     <Layout>
         <div class="wrapper">
             {projects.map(project => (
-                <Blox type={project.size} tag={project.code} name={project.tag} footer={project.title} url={project.url} colour={project.colour} transition:name={project.url} />
+                <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }}  transition:name={project.url}><Blox type={project.size} tag={project.code} name={project.tag} footer={project.title} url={project.url} colour={project.colour} /></div>
             ))}
         </div>
     </Layout>
