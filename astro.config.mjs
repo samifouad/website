@@ -12,5 +12,5 @@ export default defineConfig({
   site: 'https://samifouad.com',
   integrations: [mdx(), sitemap(), tailwind(), svelte(), icon()],
   output: "server",
-  adapter: cloudflare()
+  adapter: cloudflare({ mode: "directory" })
 });
