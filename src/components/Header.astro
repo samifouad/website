@@ -1,19 +1,26 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
+import { Image } from 'astro:assets';
+import pfp from "../../public/apple-touch-icon.png"
 ---
-
-<header class="h-[15%]">
-	<nav>
-		<div class="ml-[3%]"><a href="/" title={SITE_TITLE}><img src="/apple-touch-icon.png" class="w-[60px] rounded-[60px]" /></a></div>
-		<div class="internal-links">
-			<HeaderLink href="/">Projects</HeaderLink>
-			<HeaderLink href="/topics">Topics</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-		</div>
-	</nav>
+<header class="h-[15%]" transition:persist>
+    <nav>
+        <div class="ml-[3%] text-sm flex items-center">
+            <a href="/" title="Sami Fouad" class="flex items-center">
+                <Image src={pfp} class="w-[60px] h-[60px] rounded-full mr-4" alt="Sami Fouad" />
+                Sami Fouad
+            </a>
+        </div>
+        <!-- Keeping original internal links styling -->
+        <div class="internal-links">
+            <HeaderLink href="/">Projects</HeaderLink>
+            <HeaderLink href="/topics">Topics</HeaderLink>
+            <HeaderLink href="/blog">Blog</HeaderLink>
+            <HeaderLink href="/about">About</HeaderLink>
+        </div>
+    </nav>
 </header>
+
 <style>
 	header {
 		margin: 0;

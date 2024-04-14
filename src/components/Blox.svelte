@@ -1,11 +1,17 @@
 <script>
-	 export let type
-	 export let tag
-	 export let name
-	 export let footer
-	 export let url
-	 export let colour
+	 export let type = "small"
+	 export let tag = "Sf"
+	 export let name = "Sami"
+	 export let footer = ""
+	 export let url = ""
+	 export let colour = ""
 </script>
+
+{#if type === 'profile'}
+	<div class="item rounded-[18px] w-full h-full leading-[128px]" style="background: {colour}">
+		{name}
+	</div>
+{/if}
 
 {#if type === 'small'}
 	<div class="item rounded-[18px]" style="background: {colour}">
@@ -150,10 +156,5 @@
 		padding-bottom: 15px;
 		padding-right: 10px;
 		opacity: 0.90;
-	}
-
-	.bfooter a {
-		color: #fdfdfd;
-		text-decoration: none;
 	}
 </style>

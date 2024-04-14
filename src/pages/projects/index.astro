@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/ProjectPage.astro'
+import Blox from '../../components/Blox.svelte'
+import { getCollection } from 'astro:content'
+import shuffle from '../../helpers/shuffle'
+
+// this is for removing the global 
+// header and footer if the page is
+// accessed by client side nav
+// if this is not present, that means
+// the page was accessed by the url
+// directly so it should show header/footer
+const { inline } = Astro.props
+
+const posts = await getCollection('projects')
+let projects = posts.map(post => post.data)
+shuffle(projects)
+---
+
+{inline ? 
+    <div class="wrapper">
+        {projects.map(project => (
+            <Blox type={project.size} tag={project.code} name={project.tag} footer={project.title} url={project.url} colour={project.colour} transition:name={project.url} />
+        ))}
+    </div>
+    :
+    <Layout>
+        <div class="wrapper">
+            {projects.map(project => (
+                <Blox type={project.size} tag={project.code} name={project.tag} footer={project.title} url={project.url} colour={project.colour} transition:name={project.url} />
+            ))}
+        </div>
+    </Layout>
+}

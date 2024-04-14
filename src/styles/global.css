@@ -153,3 +153,39 @@ hr {
 	/* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
+
+@media only screen and (max-width: 480px) {
+    .wrapper {
+      width: 98%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 150px;
+      grid-gap: 8px;
+      grid-auto-flow: dense;
+    }
+  }
+
+  @media only screen and (min-width: 481px) {
+    .wrapper {
+      width: 98%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat( auto-fit, minmax(200px, 3fr) );
+      grid-auto-rows: 150px;
+      grid-gap: 8px;
+      grid-auto-flow: dense;
+    }
+  }
+
+  @media only screen and (min-width: 630px) {
+    .wrapper {
+      width: 98%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat( auto-fit, minmax(200px, 3fr) );
+      grid-auto-rows: 150px;
+      grid-gap: 8px;
+      grid-auto-flow: dense;
+    }
+  }
