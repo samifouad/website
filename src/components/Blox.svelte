@@ -23,7 +23,7 @@
 		</a>
 {/if}
 
-{#if type === 'vertical'}
+{#if type === 'vert'}
 		<a href="/projects/{url}">
 		{#if tag && name && footer}
 			<div class="tag">{tag}</div>
