@@ -1,0 +1,41 @@
+---
+export const prerender = true;
+
+import ProjectPage from '../../layouts/ProjectPage.astro'
+
+const { id } = Astro.params;
+
+const json = await Astro.glob('../../../public/json/samifouad.*.json')
+
+const projects = json.map((id) => id.default)
+
+const page_filter = projects.filter((project) => id === project.url)
+
+const page = page_filter[0]
+
+export async function getStaticPaths() {
+  const json = await Astro.glob('../../../public/json/samifouad.*.json')
+
+  const projects = json.map((id) => id.default)
+
+  const static_list = projects.map((project) => (
+    {
+      params: { id: project.url }
+    }
+  ))
+
+  //console.log('static list: '+ JSON.stringify(static_list))
+
+  return static_list
+}
+
+const page_data = { 
+  url: page.url, 
+  title: page.title, 
+  code: page.code ? page.code : '', 
+  tag: page.tag ? page.tag : '', 
+  colour: page.colour
+}
+---
+
+<ProjectPage {...page_data} />

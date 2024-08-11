@@ -1,11 +1,11 @@
 ---
+export const prerender = true;
+
 import Layout from '../../layouts/ProjectPage.astro'
 import Blox from '../../components/Blox.svelte'
-import { getCollection } from 'astro:content'
 import shuffle from '../../helpers/shuffle'
-import { Octokit } from '@octokit/core'
 
-// this is for removing the global 
+// this is for removing the global
 // header and footer if the page is
 // accessed by client side nav
 // if this is not present, that means
@@ -13,69 +13,12 @@ import { Octokit } from '@octokit/core'
 // directly so it should show header/footer
 const { inline } = Astro.props
 
-const octokit = new Octokit({ auth: import.meta.env.GH_TOKEN });
+const json = await Astro.glob('../../../public/json/*.json')
 
-const response = await octokit.request('GET /users/{username}/repos', {
-  username: 'samifouad',
-  headers: {
-    'X-GitHub-Api-Version': '2022-11-28'
-  }
-})
+const projects = json.map((id) => id.default)
 
-const project_list = response.data
-    							.filter(repo => !repo.private)
-								.map(repo => repo.full_name)
+//console.log(projects[0].title)
 
-//console.log(project_list)
-
-async function getFileContent(owner: string, repo: string, path: string) {
-  try {
-    const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-      owner: owner,
-      repo: repo,
-      path: path,
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-    });
-
-    // Decode content if it's base64 encoded
-    const content = Buffer.from(response.data.content, 'base64').toString('utf-8');
-	// Parse the JSON string into an object
-    const parsedContent = JSON.parse(content);
-    
-    return parsedContent;
-    
-  } catch (error) {
-    if (error.status === 404) {
-      console.log(`File ${path} does not exist in the repository ${repo}.`);
-      return null;
-    } else {
-      console.error("An error occurred:", error);
-      throw error;  // Rethrow the error for network or other issues
-    }
-  }
-}
-
-const website_projects = await project_list.map(async (item) => {
-	const [owner, repo] = item.split('/');
-	const content = await getFileContent(owner, repo, 'sf.json');
-	if (content !== null) {
-		console.log('found for: '+ item)
-		return content;
-	}
-})
-
-const results = await Promise.all(website_projects);
-const filteredResults = results.filter(content => content !== undefined)
-console.log('New Results:', filteredResults);
-
-// const posts = await getCollection('projects')
-// let projects = posts.map(post => post.data)
-
-// console.log('Old Results:', filteredResults);
-
-let projects = filteredResults
 shuffle(projects)
 ---
 
