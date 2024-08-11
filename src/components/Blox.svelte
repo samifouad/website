@@ -23,6 +23,14 @@
 		</a>
 {/if}
 
+{#if type === 'micro'}
+		<a href="/projects/{url}">
+		{#if footer}
+			<div class="bname-micro" style="font-size: 14px; height: 100%">{footer}</div>
+		{/if}
+		</a>
+{/if}
+
 {#if type === 'vert'}
 		<a href="/projects/{url}">
 		{#if tag && name && footer}
@@ -58,14 +66,6 @@
 	.item:hover {
 		cursor: pointer;
 	}
-	.hero {
-		grid-column: span 2;
-		grid-row: span 2;
-	}
-	.vert {
-		grid-column: span 1;
-		grid-row: span 2;
-	}
 }
 @media only screen and (min-width: 481px) {
 	.item {
@@ -80,14 +80,6 @@
 	.item:hover {
 		cursor: pointer;
 	}
-	.hero {
-		grid-column: span 2;
-		grid-row: span 2;
-	}
-	.vert {
-		grid-column: span 1;
-		grid-row: span 2;
-	}
 }
 @media only screen and (min-width: 630px) {
 	.item {
@@ -98,19 +90,8 @@
 		text-align: center;
 		transition-duration: 0.2s;
 	}
-	.item .bname {
-		text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
-	}
 	.item:hover {
 		cursor: pointer;
-	}
-	.hero {
-		grid-column: span 2;
-		grid-row: span 2;
-	}
-	.vert {
-		grid-column: span 1;
-		grid-row: span 2;
 	}
 }
 	.tag {
@@ -132,6 +113,15 @@
 		font-family: 'Teko', sans-serif;
 		align-items: center;
 		color: #fdfdfd;
+		justify-content: center;
+	}
+
+	.bname-micro {
+		display: flex;
+		height: calc(100% - 3rem);
+		font-family: 'Teko', sans-serif;
+		align-items: center;
+		color: #6082B6;
 		justify-content: center;
 	}
 

@@ -3,6 +3,7 @@ import Layout from '../../layouts/ProjectPage.astro'
 import Blox from '../../components/Blox.svelte'
 import { getCollection } from 'astro:content'
 import shuffle from '../../helpers/shuffle'
+import { Octokit } from '@octokit/core'
 
 // this is for removing the global 
 // header and footer if the page is
@@ -12,8 +13,69 @@ import shuffle from '../../helpers/shuffle'
 // directly so it should show header/footer
 const { inline } = Astro.props
 
-const posts = await getCollection('projects')
-let projects = posts.map(post => post.data)
+const octokit = new Octokit({ auth: import.meta.env.GH_TOKEN });
+
+const response = await octokit.request('GET /users/{username}/repos', {
+  username: 'samifouad',
+  headers: {
+    'X-GitHub-Api-Version': '2022-11-28'
+  }
+})
+
+const project_list = response.data
+    							.filter(repo => !repo.private)
+								.map(repo => repo.full_name)
+
+//console.log(project_list)
+
+async function getFileContent(owner: string, repo: string, path: string) {
+  try {
+    const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+      owner: owner,
+      repo: repo,
+      path: path,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+
+    // Decode content if it's base64 encoded
+    const content = Buffer.from(response.data.content, 'base64').toString('utf-8');
+	// Parse the JSON string into an object
+    const parsedContent = JSON.parse(content);
+    
+    return parsedContent;
+    
+  } catch (error) {
+    if (error.status === 404) {
+      console.log(`File ${path} does not exist in the repository ${repo}.`);
+      return null;
+    } else {
+      console.error("An error occurred:", error);
+      throw error;  // Rethrow the error for network or other issues
+    }
+  }
+}
+
+const website_projects = await project_list.map(async (item) => {
+	const [owner, repo] = item.split('/');
+	const content = await getFileContent(owner, repo, 'sf.json');
+	if (content !== null) {
+		console.log('found for: '+ item)
+		return content;
+	}
+})
+
+const results = await Promise.all(website_projects);
+const filteredResults = results.filter(content => content !== undefined)
+console.log('New Results:', filteredResults);
+
+// const posts = await getCollection('projects')
+// let projects = posts.map(post => post.data)
+
+// console.log('Old Results:', filteredResults);
+
+let projects = filteredResults
 shuffle(projects)
 ---
 
@@ -25,7 +87,7 @@ shuffle(projects)
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 150px;
+      grid-auto-rows: 75px;
       grid-gap: 8px;
       grid-auto-flow: dense;
     }
@@ -37,7 +99,7 @@ shuffle(projects)
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat( auto-fit, minmax(200px, 3fr) );
-      grid-auto-rows: 150px;
+      grid-auto-rows: 75px;
       grid-gap: 8px;
       grid-auto-flow: dense;
     }
@@ -49,7 +111,7 @@ shuffle(projects)
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat( auto-fit, minmax(200px, 3fr) );
-      grid-auto-rows: 150px;
+      grid-auto-rows: 75px;
       grid-gap: 8px;
       grid-auto-flow: dense;
     }
@@ -60,6 +122,8 @@ shuffle(projects)
 		color: white;
 		background: #f9f9f9;
 		padding: 0px;
+		grid-column: span 1;
+		grid-row: span 2;
 	}
 	.item:nth-child(even) {
 		background: #ececec;
@@ -69,11 +133,15 @@ shuffle(projects)
 	}
 	.hero {
 		grid-column: span 2;
-		grid-row: span 2;
+		grid-row: span 4;
 	}
 	.vert {
 		grid-column: span 1;
-		grid-row: span 2;
+		grid-row: span 3;
+	}
+	.micro {
+		grid-column: span 1;
+		grid-row: span 1;
 	}
 }
 @media only screen and (min-width: 481px) {
@@ -82,6 +150,8 @@ shuffle(projects)
 		color: white;
 		background: #f9f9f9;
 		padding: 0px;
+		grid-column: span 1;
+		grid-row: span 2;
 	}
 	.item:nth-child(even) {
 		background: #ececec;
@@ -91,11 +161,16 @@ shuffle(projects)
 	}
 	.hero {
 		grid-column: span 2;
-		grid-row: span 2;
+		grid-row: span 4;
 	}
 	.vert {
 		grid-column: span 1;
-		grid-row: span 2;
+		grid-row: span 3;
+	}
+
+	.micro {
+		grid-column: span 1;
+		grid-row: span 1;
 	}
 }
 @media only screen and (min-width: 630px) {
@@ -106,6 +181,8 @@ shuffle(projects)
 		scale: 1.0;
 		text-align: center;
 		transition-duration: 0.2s;
+		grid-column: span 1;
+		grid-row: span 2;
 	}
 	.item .bname {
 		text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
@@ -115,11 +192,15 @@ shuffle(projects)
 	}
 	.hero {
 		grid-column: span 2;
-		grid-row: span 2;
+		grid-row: span 4;
 	}
 	.vert {
 		grid-column: span 1;
-		grid-row: span 2;
+		grid-row: span 5;
+	}
+	.micro {
+		grid-column: span 1;
+		grid-row: span 1;
 	}
 }
 </style>
@@ -127,14 +208,14 @@ shuffle(projects)
 {inline ? 
     <div class="wrapper">
         {projects.map(project => (
-            <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }} transition:name={project.url}><Blox type={project.size} tag={project.code} name={project.tag} footer={project.title} url={project.url} colour={project.colour} transition:name={project.url} /></div>
+            <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }} transition:name={project.url}><Blox type={project.size} tag={project.code ? project.code : ''} name={project.tag ? project.tag : ''} footer={project.title} url={project.url} colour={project.colour} transition:name={project.url} /></div>
         ))}
     </div>
     :
     <Layout>
         <div class="wrapper">
             {projects.map(project => (
-                <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }}  transition:name={project.url}><Blox type={project.size} tag={project.code} name={project.tag} footer={project.title} url={project.url} colour={project.colour} /></div>
+                <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }}  transition:name={project.url}><Blox type={project.size} tag={project.code ? project.code : ''} name={project.tag ? project.tag : ''} footer={project.title} url={project.url} colour={project.colour} /></div>
             ))}
         </div>
     </Layout>
