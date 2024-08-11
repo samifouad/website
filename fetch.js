@@ -1,6 +1,7 @@
 import { Octokit } from '@octokit/core'
 import fs from 'fs'
 import path from 'path'
+import 'dotenv/config'
 
 const folderPath = './public/json';
 
