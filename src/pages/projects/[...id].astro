@@ -5,13 +5,14 @@ import ProjectPage from '../../layouts/ProjectPage.astro'
 
 const { id } = Astro.params;
 
-const json = await Astro.glob('../../../public/json/samifouad.*.json')
+const json = await Astro.glob('../../../public/data/samifouad.*.info.json')
 const projects = json.map((id) => id.default)
 const page_filter = projects.filter((project) => id === project.url)
 const page = page_filter[0]
 
 export async function getStaticPaths() {
-  const json = await Astro.glob('../../../public/json/samifouad.*.json')
+  const json = await Astro.glob('../../../public/data/samifouad.*.info.json')
+
   const projects = json.map((id) => id.default)
 
   const static_list = projects.map((project) => (

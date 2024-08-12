@@ -13,7 +13,7 @@ import shuffle from '../../helpers/shuffle'
 // directly so it should show header/footer
 const { inline } = Astro.props
 
-const json = await Astro.glob('../../../public/json/*.json')
+const json = await Astro.glob('../../../public/data/*.info.json')
 
 const projects = json.map((id) => id.default)
 

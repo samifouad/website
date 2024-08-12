@@ -26,5 +26,5 @@ pnpm-debug.log*
 .vscode/
 .env.local
 .vercel
-public/json
+public/data
 .env.development.local

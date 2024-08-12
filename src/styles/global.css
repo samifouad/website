@@ -63,16 +63,17 @@ h1 {
 	font-size: 3.052em;
 }
 h2 {
-	font-size: 2.441em;
+	font-size: 28px;
+	font-weight: bold;
 }
 h3 {
-	font-size: 1.953em;
+	font-size: 22px;
 }
 h4 {
-	font-size: 1.563em;
+	font-size: 16px;
 }
 h5 {
-	font-size: 1.25em;
+	font-size: 12px;
 }
 strong,
 b {
@@ -190,4 +191,12 @@ hr {
     }
   }
 
+.astro-code {
+	font-size: 14px;
+	width: 90%;
+}
 
+code {
+	font-size: 14px;
+	border-radius: 8px;
+}

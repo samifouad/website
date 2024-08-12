@@ -9,6 +9,33 @@ import { ViewTransitions } from 'astro:transitions'
 import Blox from '../components/Blox.svelte'
 
 const { url, title, code, tag, colour } = Astro.props
+
+// readme
+// const readme = await Astro.glob('../../public/data/samifouad.*.readme.md')
+
+// const projects = readme.filter((id) => {
+// 	const first = id.file.split('/public/data/samifouad.')
+// 	const second = first[1].split('.readme.')
+// 	if (title === second[0]) {
+// 		return id
+// 	}
+// })
+
+// const readme_html = projects[0].compiledContent()
+
+// simplified readme 
+const readme_raw = await import('../../public/data/samifouad.'+ title +'.readme.md')
+const readme_html = readme_raw.compiledContent()
+
+// topics
+const topics_json = await import('../../public/data/samifouad.'+ title +'.topics.json')
+const topics = topics_json.default
+
+// languages
+const lang_json = await import('../../public/data/samifouad.'+ title +'.lang.json')
+const lang = lang_json.default
+
+console.log(lang)
 ---
 
 <html lang="en">
@@ -19,12 +46,31 @@ const { url, title, code, tag, colour } = Astro.props
 
 	<body class="w-full bg-white">
 		<Header transition:persist />
-		<main class="h-fit">
-				<div class="w-full h-fit">
-					<div class="w-[80px] h-32 float-left" transition:name={ url }><Blox type="profile" tag={ code } name={ tag } footer={ title } colour={ colour }  /></div>
-					<h1 class="float-left">{title}</h1>
-				</div>
-		</main>
+		<div class="float-left w-full h-fit">
+			<div class="float-left w-[65%] pl-[5%]">
+				<p class="text-sm">
+					<Fragment set:html={readme_html}>
+				</p>
+			</div>
+			<div class="h-fit float-left w-[30%] rounded-xl bg-gray-50 break-words pl-2 pr-2">
+				<!-- <div class="w-[80px] h-32 float-left" transition:name={ url }>
+					<div class="float-left w-fit"><Blox type="profile" tag={ code } name={ tag } footer={ title } colour={ colour }  /></div>
+				</div> -->
+				About
+				<br>
+				<span class="text-sm">insert description here</span>
+				<br><br>
+				Topics
+				<br>
+				{topics.map((item) => (
+					<div class="inline-block rounded-xl p-2 mr-3 m-2 text-sm bg-gray-300">{item}</div>
+				))}
+				<br><br>
+				Languages
+				<br>
+				<span class="text-sm">{JSON.stringify(lang)}</span>
+			</div>
+		</div>
 		<Footer />
 	</body>
 </html>
