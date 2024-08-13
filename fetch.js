@@ -156,7 +156,7 @@ const project_languages = await full_array.map(async (item) => {
   })
 
   //console.log('saved language info for: '+ item)
-	await saveContentToLocalFile(item, JSON.stringify(response.data), 'lang')
+	await saveContentToLocalFile(item, JSON.stringify({ repo: item, data: response.data }), 'lang')
 })
 
 await Promise.all(project_languages)
@@ -175,7 +175,7 @@ const project_topics = await full_array.map(async (item) => {
   })
   
   //console.log('saved topics for: '+ item)
-	await saveContentToLocalFile(item, JSON.stringify(response.data.names), 'topics')
+	await saveContentToLocalFile(item, JSON.stringify({ repo: item, data: response.data.names }), 'topics')
 })
 
 await Promise.all(project_topics)
