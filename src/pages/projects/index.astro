@@ -1,7 +1,7 @@
 ---
 
 import Layout from '../../layouts/ProjectPage.astro'
-import Projectlist from '../../components/ProjectList.svelte'
+import Projectlist from '../../components/ProjectList.astro'
 
 // this is for removing the global
 // header and footer if the page is
@@ -18,9 +18,9 @@ const projects = json.map((id) => id.default)
 //console.log('list from astro: '+ projects)
 ---
 {inline ? 
-<Projectlist list={projects} client:load />
+    <Projectlist projects={projects} client:load />
     :
     <Layout>
-      <Projectlist list={projects} client:load />
+      <Projectlist projects={projects} client:load />
     </Layout>
 }

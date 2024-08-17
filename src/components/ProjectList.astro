@@ -1,22 +1,19 @@
-<script>
-  import Blox from "./Blox.svelte";
-  import shuffle from "../helpers/shuffle.js";
+---
+import Blox from "./Blox.svelte";
+import shuffle from "../helpers/shuffle.js";
 
-  export let list;
+const { projects } = Astro.props;
 
-  console.log("list from svelte: " + list);
+console.log(projects)
 
-  let projects = list;
-
-  shuffle(projects);
-</script>
+shuffle(projects);
+---
 
 <div class="wrapper">
-  {#each projects as project}
-    <div
-      class={`item rounded-[18px] ${project.size}`}
-      style="background: {project.colour};"
-    >
+  {projects.map(project => (
+  <div class:list={["item rounded-[18px]", project.size]}
+          style={{ 'background': project.colour }}
+          transition:name={ project.url }>
       <Blox
         type={project.size}
         tag={project.code ? project.code : ""}
@@ -24,9 +21,10 @@
         footer={project.title}
         url={project.url}
         colour={project.colour}
+        transition:name={project.url}
       />
     </div>
-  {/each}
+  ))}
 </div>
 
 <style>
