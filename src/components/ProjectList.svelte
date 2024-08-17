@@ -1,0 +1,152 @@
+<script>
+  import Blox from "./Blox.svelte";
+  import shuffle from "../helpers/shuffle.js";
+
+  export let list;
+
+  console.log("list from svelte: " + list);
+
+  let projects = list;
+
+  shuffle(projects);
+</script>
+
+<div class="wrapper">
+  {#each projects as project}
+    <div
+      class={`item rounded-[18px] ${project.size}`}
+      style="background: {project.colour};"
+    >
+      <Blox
+        type={project.size}
+        tag={project.code ? project.code : ""}
+        name={project.tag ? project.tag : ""}
+        footer={project.title}
+        url={project.url}
+        colour={project.colour}
+      />
+    </div>
+  {/each}
+</div>
+
+<style>
+  @media only screen and (max-width: 480px) {
+    .wrapper {
+      width: 98%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 75px;
+      grid-gap: 8px;
+      grid-auto-flow: dense;
+    }
+  }
+
+  @media only screen and (min-width: 481px) {
+    .wrapper {
+      width: 98%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
+      grid-auto-rows: 75px;
+      grid-gap: 8px;
+      grid-auto-flow: dense;
+    }
+  }
+
+  @media only screen and (min-width: 630px) {
+    .wrapper {
+      width: 98%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
+      grid-auto-rows: 75px;
+      grid-gap: 8px;
+      grid-auto-flow: dense;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .item {
+      position: relative;
+      color: white;
+      background: #f9f9f9;
+      padding: 0px;
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+    .item:nth-child(even) {
+      background: #ececec;
+    }
+    .item:hover {
+      cursor: pointer;
+    }
+    .hero {
+      grid-column: span 2;
+      grid-row: span 4;
+    }
+    .vert {
+      grid-column: span 1;
+      grid-row: span 3;
+    }
+    .micro {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+  @media only screen and (min-width: 481px) {
+    .item {
+      position: relative;
+      color: white;
+      background: #f9f9f9;
+      padding: 0px;
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+    .item:nth-child(even) {
+      background: #ececec;
+    }
+    .item:hover {
+      cursor: pointer;
+    }
+    .hero {
+      grid-column: span 2;
+      grid-row: span 4;
+    }
+    .vert {
+      grid-column: span 1;
+      grid-row: span 3;
+    }
+
+    .micro {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+  @media only screen and (min-width: 630px) {
+    .item {
+      position: relative;
+      color: white;
+      padding: 0px;
+      scale: 1;
+      text-align: center;
+      transition-duration: 0.2s;
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+    .item:hover {
+      cursor: pointer;
+    }
+    .hero {
+      grid-column: span 2;
+      grid-row: span 4;
+    }
+    .vert {
+      grid-column: span 1;
+      grid-row: span 5;
+    }
+    .micro {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+</style>
