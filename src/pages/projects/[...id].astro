@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content'
 import Page from '../../components/ProjectPage.astro'
+import Layout from '../../layouts/ProjectPage.astro'
 
 const { id } = Astro.params
 
@@ -37,4 +38,6 @@ const page_data = {
 }
 ---
 
-<Page {...page_data} />
+<Layout>
+  <Page {...page_data} />
+</Layout>
