@@ -2,6 +2,7 @@ import { Octokit } from '@octokit/core'
 import fs from 'fs'
 import path from 'path'
 import 'dotenv/config'
+import { marked } from 'marked'
 
 const folderPath = './public/data' // target folder
 
@@ -46,21 +47,27 @@ async function saveContentToLocalFile(repo, content, type) {
   let fileName
   
   switch (type) {
+    case 'repo':
+      fileName = `${owner}.${repoName}._.json`
+    break
     case 'info':
       fileName = `${owner}.${repoName}.info.json`
     break
     case 'readme':
       fileName = `${owner}.${repoName}.readme.md`
-    break;
+    break
+    case 'readme_html':
+      fileName = `${owner}.${repoName}.readme.html`
+    break
     case 'lang':
       fileName = `${owner}.${repoName}.lang.json`
-    break;
+    break
     case 'topics':
       fileName = `${owner}.${repoName}.topics.json`
     break;
     default:
       fileName = `${owner}.${repoName}.data.json`
-    break;
+    break
   }
   
   //`${owner}.${repoName}.json`
@@ -71,7 +78,60 @@ async function saveContentToLocalFile(repo, content, type) {
   console.log(`Saved: ${filePath}`) // log for sanity check and CI logs
 }
 
-async function getFileContent(owner, repo, path) {
+async function loadContentFromLocalFile(repo, type='all') {
+
+  const [owner, repoName] = repo.split('/') // array values are formatted: <owner>/<repo>
+  let fileName
+  let filePath
+  let data
+  
+  switch (type) {
+    case 'data':
+      fileName = `${owner}.${repoName}._.json`
+      filePath = path.join(folderPath, fileName) 
+      data = fs.readFileSync(filePath, 'utf8');
+      return JSON.parse(data);
+    break
+    case 'info':
+      fileName = `${owner}.${repoName}.info.json`
+      filePath = path.join(folderPath, fileName) 
+      data = fs.readFileSync(filePath, 'utf8');
+      return JSON.parse(data);
+    break
+    case 'readme':
+      fileName = `${owner}.${repoName}.readme.md`
+      filePath = path.join(folderPath, fileName) 
+      data = fs.readFileSync(filePath, 'utf8');
+      return data;
+    break
+    case 'readme_html':
+      fileName = `${owner}.${repoName}.readme.html`
+      filePath = path.join(folderPath, fileName) 
+      data = fs.readFileSync(filePath, 'utf8');
+      return data;
+    break
+    case 'lang':
+      fileName = `${owner}.${repoName}.lang.json`
+      filePath = path.join(folderPath, fileName) 
+      data = fs.readFileSync(filePath, 'utf8');
+      return JSON.parse(data);
+    break
+    case 'topics':
+      fileName = `${owner}.${repoName}.topics.json`
+      filePath = path.join(folderPath, fileName) 
+      data = fs.readFileSync(filePath, 'utf8');
+      return JSON.parse(data);
+    break
+    default:
+      fileName = `${owner}.${repoName}.data.json`
+      filePath = path.join(folderPath, fileName) 
+      data = fs.readFileSync(filePath, 'utf8');
+      return JSON.parse(data);
+    break
+  }
+}
+
+async function getRepoContent(owner, repo, path) {
   try {
     const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
       owner: owner,
@@ -112,7 +172,7 @@ console.log('repo data injested:')
 const project_info = await project_list.map(async (item) => {
 	const [owner, repo] = item.split('/') // array values are formatted: <owner>/<repo>
 
-	const content = await getFileContent(owner, repo, 'sf.json')
+	const content = await getRepoContent(owner, repo, 'sf.json')
 
 	if (content !== null) {
 		//console.log('found for: '+ item)
@@ -131,11 +191,12 @@ console.log('\nREADME injested:')
 const project_readme = await full_array.map(async (item) => {
 	const [owner, repo] = item.split('/') // array values are formatted: <owner>/<repo>
 
-  const readme = await getFileContent(owner, repo, 'README.md')
+  const readme = await getRepoContent(owner, repo, 'README.md')
 
   if (readme !== null) {
 		//console.log('found for: '+ item)
 		await saveContentToLocalFile(item, readme, 'readme')
+		await saveContentToLocalFile(item, marked(readme), 'readme_html')
 		return readme;
 	}
 })
@@ -185,3 +246,31 @@ await Promise.all(project_topics)
 // let projects = filteredResults
 
 // console.log(projects)
+
+console.log('\nunifying repo content:')
+
+const unified_data = await full_array.map(async (item) => {
+	const [owner, repo] = item.split('/') // array values are formatted: <owner>/<repo>
+
+  const info_data = await loadContentFromLocalFile(item, 'info')
+  const lang_data = await loadContentFromLocalFile(item, 'lang')
+  const topics_data = await loadContentFromLocalFile(item, 'topics')
+  const readme_data = await loadContentFromLocalFile(item, 'readme')
+  
+  let projectobj = {
+    id: repo,
+    title: info_data.title,
+    tag: info_data.tag,
+    url: info_data.url,
+    code: info_data.code,
+    colour: info_data.colour,
+    size: info_data.size,
+    lang: lang_data.data,
+    topics: topics_data.data,
+    readme: readme_data
+  }
+
+  await saveContentToLocalFile(item, JSON.stringify(projectobj), 'repo')
+})
+
+await Promise.all(unified_data)

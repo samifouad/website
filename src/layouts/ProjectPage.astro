@@ -3,57 +3,28 @@ import BaseHead from '../components/BaseHead.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
-import { ViewTransitions } from 'astro:transitions'
-//import Blox from '../components/Blox.svelte'
 import { Lang } from '../components/Lang.jsx'
 import json from '../helpers/colous.json'
+import { marked } from 'marked'
 
-const { url, title, code, tag, colour } = Astro.props
+const { url, title, code, tag, colour, readme, topics, lang } = Astro.props
 
-// readme
-const readme = await Astro.glob('../../public/data/samifouad.*.readme.md')
-const projects = readme.filter((id) => {
-	const first = id.file.split('/public/data/samifouad.')
-	const second = first[1].split('.readme.')
-	if (title === second[0]) {
-		return id
-	}
-})
-
-
-const readme_html = projects[0].compiledContent()
-
-// topics
-const topics_raw = await Astro.glob('../../public/data/samifouad.*.topics.json')
-const topics_filter = topics_raw.filter((id) => {
-	if (title === id.default.repo.split('/')[1]) {
-		return id.default.data
-	}
-})
-const topics = topics_filter[0].default.data
-
-// languages
-const lang_raw = await Astro.glob('../../public/data/samifouad.*.lang.json')
-const lang_filter = lang_raw.filter((id) => {
-	if (title === id.default.repo.split('/')[1]) {
-		return id.default.data
-	}
-})
-const lang = lang_filter[0].default.data
+//console.log('pro'+ JSON.stringify(projects))
+console.log(lang)
+const readme_html = marked.parse(readme)
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<ViewTransitions />
 	</head>
 
 	<body class="w-full bg-white">
-		<Header transition:persist />
+		<Header  />
 		<div class="float-left w-full h-fit">
 			<div class="float-left w-[65%] pl-[5%]">
 				<p class="text-sm">
-					<Fragment set:html={readme_html}>
+        <Fragment set:html={readme_html} />
 				</p>
 			</div>
 			<div class="h-fit float-left w-[30%] rounded-xl bg-gray-50 break-words pl-2 pr-2">
@@ -67,7 +38,7 @@ const lang = lang_filter[0].default.data
 				<strong>Topics</strong>
 				<br>
 				{topics.map((item) => (
-					<div class="inline-block rounded-xl p-2 mr-3 m-2 text-sm bg-gray-300">{item}</div>
+					<div class="inline-block rounded-xl p-2 mr-3 m-2 text-sm bg-gray-300">{item.toString()}</div>
 				))}
 				<br><br>
 				<strong>Languages</strong>

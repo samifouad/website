@@ -1,23 +1,24 @@
 ---
-export const prerender = true;
-
+import { getCollection } from 'astro:content'
 import ProjectPage from '../../layouts/ProjectPage.astro'
 
-const { id } = Astro.params;
+const { id } = Astro.params
 
-const json = await Astro.glob('../../../public/data/samifouad.*.info.json')
-const projects = json.map((id) => id.default)
-const page_filter = projects.filter((project) => id === project.url)
-const page = page_filter[0]
+const newpagedata = await getCollection('projects')
+const projects = newpagedata.filter((project) => id === project.data.id)
+
+const page = projects[0]
+
+console.log(page)
 
 export async function getStaticPaths() {
-  const json = await Astro.glob('../../../public/data/samifouad.*.info.json')
+  const json = await Astro.glob('../../../public/data/samifouad.*._.json')
 
   const projects = json.map((id) => id.default)
 
   const static_list = projects.map((project) => (
     {
-      params: { id: project.url }
+      params: { id: project.id }
     }
   ))
 
@@ -25,11 +26,14 @@ export async function getStaticPaths() {
 }
 
 const page_data = { 
-  url: page.url, 
-  title: page.title, 
-  code: page.code ? page.code : '', 
-  tag: page.tag ? page.tag : '', 
-  colour: page.colour
+  url: page.data.url, 
+  title: page.data.title, 
+  code: page.data.code ? page.data.code : '', 
+  tag: page.data.tag ? page.data.tag : '', 
+  colour: page.data.colour,
+  readme: page.data.readme,
+  topics: page.data.topics,
+  lang: page.data.lang
 }
 ---
 
