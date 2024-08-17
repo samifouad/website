@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
-import ProjectPage from '../../layouts/ProjectPage.astro'
+import Page from '../../components/ProjectPage.astro'
 
 const { id } = Astro.params
 
@@ -37,4 +37,4 @@ const page_data = {
 }
 ---
 
-<ProjectPage {...page_data} />
+<Page {...page_data} />

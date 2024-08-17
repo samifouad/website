@@ -3,15 +3,6 @@ import BaseHead from '../components/BaseHead.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts'
-import { Lang } from '../components/Lang.jsx'
-import json from '../helpers/colous.json'
-import { marked } from 'marked'
-
-const { url, title, code, tag, colour, readme, topics, lang } = Astro.props
-
-//console.log('pro'+ JSON.stringify(projects))
-console.log(lang)
-const readme_html = marked.parse(readme)
 ---
 
 <html lang="en">
@@ -22,29 +13,7 @@ const readme_html = marked.parse(readme)
 	<body class="w-full bg-white">
 		<Header  />
 		<div class="float-left w-full h-fit">
-			<div class="float-left w-[65%] pl-[5%]">
-				<p class="text-sm">
-        <Fragment set:html={readme_html} />
-				</p>
-			</div>
-			<div class="h-fit float-left w-[30%] rounded-xl bg-gray-50 break-words pl-2 pr-2">
-				<!-- <div class="w-[80px] h-32 float-left" transition:name={ url }>
-					<div class="float-left w-fit"><Blox type="profile" tag={ code } name={ tag } footer={ title } colour={ colour }  /></div>
-				</div> -->
-				<strong>About</strong>
-				<br>
-				<span class="text-sm">insert description here</span>
-				<br><br>
-				<strong>Topics</strong>
-				<br>
-				{topics.map((item) => (
-					<div class="inline-block rounded-xl p-2 mr-3 m-2 text-sm bg-gray-300">{item.toString()}</div>
-				))}
-				<br><br>
-				<strong>Languages</strong>
-				<br>
-				<Lang languages={JSON.stringify(lang)} colours={json} />
-			</div>
+			<slot />
 		</div>
 		<Footer />
 	</body>
