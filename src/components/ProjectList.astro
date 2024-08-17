@@ -1,31 +1,30 @@
 ---
 import Blox from "./Blox.svelte";
 import shuffle from "../helpers/shuffle.js";
+import Layout from "../layouts/ProjectPage.astro"
 
-const { projects } = Astro.props;
+const { inline, projects } = Astro.props;
 
 console.log(projects)
 
 shuffle(projects);
 ---
 
-<div class="wrapper">
-  {projects.map(project => (
-  <div class:list={["item rounded-[18px]", project.size]}
-          style={{ 'background': project.colour }}
-          transition:name={ project.url }>
-      <Blox
-        type={project.size}
-        tag={project.code ? project.code : ""}
-        name={project.tag ? project.tag : ""}
-        footer={project.title}
-        url={project.url}
-        colour={project.colour}
-        transition:name={project.url}
-      />
+{!inline ? 
+    <div class="wrapper">
+        {projects.map(project => (
+            <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }} transition:name={project.url}><Blox type={project.size} tag={project.code ? project.code : ''} name={project.tag ? project.tag : ''} footer={project.title} url={project.url} colour={project.colour} transition:name={project.url} /></div>
+        ))}
     </div>
-  ))}
-</div>
+    :
+    <Layout>
+        <div class="wrapper">
+            {projects.map(project => (
+                <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }}  transition:name={project.url}><Blox type={project.size} tag={project.code ? project.code : ''} name={project.tag ? project.tag : ''} footer={project.title} url={project.url} colour={project.colour} /></div>
+            ))}
+        </div>
+    </Layout>
+}
 
 <style>
   @media only screen and (max-width: 480px) {
