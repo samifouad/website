@@ -12,7 +12,7 @@ import Projectlist from '../../components/ProjectList.astro'
 // directly so it should show header/footer
 const { inline } = Astro.props
 
-const json = await Astro.glob('/public/data/*.info.json')
+const json = await Astro.glob('/public/data/*._.json')
 
 const projects = json.map((id) => id.default)
 

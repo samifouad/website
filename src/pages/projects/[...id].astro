@@ -10,7 +10,7 @@ const projects = newpagedata.filter((project) => id === project.data.id)
 
 const page = projects[0]
 
-console.log(page)
+//console.log(page)
 
 export async function getStaticPaths() {
   const json = await Astro.glob('../../../public/data/samifouad.*._.json')

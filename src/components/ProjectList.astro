@@ -1,15 +1,28 @@
 ---
+export const prerender = false;
+
 import Blox from "./Blox.svelte"
 import shuffle from '../helpers/shuffle'
 
 const { projects } = Astro.props;
 
 shuffle(projects)
-console.log(projects)
+//console.log(projects)
 ---
 <div class="wrapper">
   {projects.map(project => (
-      <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }} transition:name={project.url}><Blox type={project.size} tag={project.code ? project.code : ''} name={project.tag ? project.tag : ''} footer={project.title} url={project.url} colour={project.colour} transition:name={project.url} /></div>
+  <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }} transition:name={project.url}>
+    <Blox 
+       type={project.size} 
+       tag={project.code ? project.code : ''} 
+       name={project.tag ? project.tag : ''} 
+       footer={project.title} 
+       url={project.url} 
+       colour={project.colour} 
+       lang={project.lang}
+       transition:name={project.url} 
+    />
+  </div>
   ))}
 </div>
 <style>
