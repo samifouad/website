@@ -4,7 +4,7 @@ import path from 'path'
 import 'dotenv/config'
 import { marked } from 'marked'
 
-const folderPath = './public/data' // target folder
+const folderPath = '../public/data' // target folder
 
 // delete all files first, in case something is accidentally commit
 // this isn't necessary for CI environments, but whatever. it's needed in dev

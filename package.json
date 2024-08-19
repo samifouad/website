@@ -8,7 +8,8 @@
     "build": "npm run fetch && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "fetch": "node fetch.js"
+    "fetch": "node gh-fetch/fetch.js",
+    "gh": "node gh-fetch/test.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.3",
