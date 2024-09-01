@@ -65,6 +65,9 @@ async function saveContentToLocalFile(repo, content, type) {
     case 'topics':
       fileName = `${owner}.${repoName}.topics.json`
     break;
+    case 'repos':
+      fileName = `repos.json`
+    break;
     default:
       fileName = `${owner}.${repoName}.data.json`
     break
@@ -186,6 +189,8 @@ const full_list = await Promise.all(project_info) // necessary because map retur
 
 console.log('\nlist of repos:')
 console.log(full_array)
+await saveContentToLocalFile('', JSON.stringify(full_array), 'repos')
+
 console.log('\nREADME injested:')
 
 const project_readme = await full_array.map(async (item) => {

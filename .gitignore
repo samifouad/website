@@ -28,3 +28,4 @@ pnpm-debug.log*
 .vercel
 public/data
 .env.development.local
+.env*.local
