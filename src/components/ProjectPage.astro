@@ -10,12 +10,14 @@ const { url, title, code, tag, colour, readme, topics, lang } = Astro.props
 const readme_html = marked.parse(readme)
 ---
 
-<div class="float-left w-[65%] pl-[5%]">
+<div class="text-5xl pl-6 pt-5 mb-5">{url}</div>
+
+<div class="hidden md:block float-left w-[65%] pl-[5%]">
 	<p class="text-sm">
 		<Fragment set:html={readme_html} />
 	</p>
 </div>
-<div class="h-fit float-left w-[30%] rounded-xl bg-white break-words p-4">
+<div class="h-fit md:float-left w-[90%] m-auto md:w-[30%] rounded-xl bg-white break-words p-4">
 	<!-- <div class="w-[80px] h-32 float-left" transition:name={ url }>
 		<div class="float-left w-fit"><Blox type="profile" tag={ code } name={ tag } footer={ title } colour={ colour }  /></div>
 	</div> -->
@@ -36,4 +38,9 @@ const readme_html = marked.parse(readme)
 		<Lang languages={JSON.stringify(lang)} colours={json} />
 	</span>
 	<br>
+</div>
+<div class="float-left md:hidden w-[90%] m-auto pt-5 pl-[5%]">
+	<p class="text-sm">
+		<Fragment set:html={readme_html} />
+	</p>
 </div>
