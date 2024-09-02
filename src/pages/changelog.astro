@@ -1,14 +1,20 @@
 ---
-export const prerender = true;
+export const prerender = true
 
-import Layout from '../layouts/Page.astro';
+import Layout from '../layouts/Page.astro'
+import Commit from '../components/Commit.svelte'
+import commits from '../../public/changelog/all_commits.json'
+
+//const projects = json.map((id) => id.default)
+
+console.log('commits: '+ commits)
 ---
 
 <Layout>
-	<main class="bg-white">
-		<p>
-            <span class="text-3xl">changelog</span><br><br>
-			i have an good idea about what to put here. stay tuned.
-		</p>
+	<main class="bg-white pt-2">
+        <span class="text-3xl">changelog</span><br>
+		{commits.map(c => (
+		  <p><Commit data={c} /></p>
+		))}
 	</main>
 </Layout>

@@ -3,13 +3,13 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "npm run fetch && astro dev",
-    "start": "npm run fetch && astro dev",
-    "build": "npm run fetch && astro build",
+    "dev": "npm run fetch && npm run changelog && astro dev",
+    "start": "npm run fetch && npm run changelog && astro dev",
+    "build": "npm run fetch && npm run changelog && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "fetch": "node gh-fetch/fetch.js",
-    "gh": "node gh-fetch/test.js"
+    "changelog": "node gh-fetch/changelog.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.3",

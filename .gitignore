@@ -27,5 +27,6 @@ pnpm-debug.log*
 .env.local
 .vercel
 public/data
+public/changelog
 .env.development.local
 .env*.local
