@@ -32,16 +32,16 @@
 {/if}
 
 {#if type === "micro"}
-  <a href="/projects/{url}">
+  <a href="/projects/{url}" class="inline-block w-full h-full">
     {#if footer}
-      <div class="bname-micro mt-[20px] text-sm">
+      <div class="bname-micro mt-[17px] text-sm">
         {footer}
       </div>
     {/if}
-  </a>
     {#if Object.keys(lang).length > 0}
       <LangBar {lang} />
     {/if}
+  </a>
 {/if}
 
 {#if type === "vert"}

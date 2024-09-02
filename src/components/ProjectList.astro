@@ -11,7 +11,14 @@ shuffle(projects)
 ---
 <div class="wrapper">
   {projects.map(project => (
-  <div class:list={["item rounded-[18px]", project.size]} style={{ 'background': project.colour }} transition:name={project.url}>
+  <div 
+    class:list={["item rounded-[18px]", project.size]} 
+    style={{ 
+      'background': project.size === 'micro' ? '#FFF' : project.colour,
+      'border': project.size === 'micro' ? '1px solid #EFEFEF' : 'none'
+    }} 
+    transition:name={project.url}
+  >
     <Blox 
        type={project.size} 
        tag={project.code ? project.code : ''} 

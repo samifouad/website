@@ -10,7 +10,7 @@ const friendlyDate = date.toLocaleDateString('en-US', options);
 
 </script>
 
-<div class="w-[80%] m-auto bg-slate-50 rounded-[18px] p-2 pl-4 border-2 border-slate-100">
+<div class="w-[80%] m-auto bg-white rounded-[12px] p-2 pl-4 pb-4 pt-3 border-2 border-[#EFEFEF]">
 <div class="flex items-center">
 	<img src="{data.avatar}" class="w-[30px] h-[30px] rounded-full mr-4" alt="{data.name}">
 	<span class="text-sm">{data.name} made a commit to <a href="{url}">{data.repo}</a></span>

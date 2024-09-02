@@ -15,7 +15,7 @@ const readme_html = marked.parse(readme)
 		<Fragment set:html={readme_html} />
 	</p>
 </div>
-<div class="h-fit float-left w-[30%] rounded-xl bg-gray-50 break-words pl-2 pr-2">
+<div class="h-fit float-left w-[30%] rounded-xl bg-white break-words p-4">
 	<!-- <div class="w-[80px] h-32 float-left" transition:name={ url }>
 		<div class="float-left w-fit"><Blox type="profile" tag={ code } name={ tag } footer={ title } colour={ colour }  /></div>
 	</div> -->
@@ -26,7 +26,7 @@ const readme_html = marked.parse(readme)
 	<strong>Topics</strong>
 	<br>
 	{topics.map((item) => (
-		<div class="inline-block rounded-xl p-2 mr-3 m-2 text-sm bg-gray-300">{item.toString()}</div>
+		<div class="inline-block rounded-xl pl-3 pr-3 pt-1 pb-1 mr-3 m-2 text-sm bg-slate-200">{item.toString()}</div>
 	))}
 	<br><br>
 	<strong>Languages</strong>
