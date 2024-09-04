@@ -1,7 +1,8 @@
 ---
-export const prerender = true;
+export const prerender = true
 
-import Layout from '../layouts/Page.astro';
+import Layout from '../layouts/Page.astro'
+import Score from '../components/Score.svelte'
 ---
 
 <Layout>
@@ -9,6 +10,12 @@ import Layout from '../layouts/Page.astro';
 		<p>
             <span class="text-3xl">about</span><br><br>
 			i have a good idea about what to put here. stay tuned.
+			<div class="flex justify-between w-[80%] m-auto">
+				<Score value=100 size=70 />
+				<Score value=50 size=70 />
+				<Score value=100 size=70 />
+				<Score value=20 size=70 />
+			</div>
 		</p>
 	</main>
 </Layout>
