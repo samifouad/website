@@ -1,7 +1,7 @@
 {
   "name": "website-astro",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.9.0",
   "scripts": {
     "dev": "npm run fetch && npm run changelog && astro dev",
     "start": "npm run fetch && npm run changelog && astro dev",
