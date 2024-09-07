@@ -10,12 +10,24 @@
       return '#00cc66'
     } else if (value >= 49) {
       bgcolor = '#fff6ea'
-      return '#ffaa33';
+      return '#ffaa33'
     } else {
       bgcolor = '#ffeaea'
-      return '#ff4848';
+      return '#ff4848'
     }
-  };
+  }
+
+  const getTextSize = (value) => {
+    if (value >= 60) {
+      return '0.95em'
+    } else if (value >= 41) {
+      return '0.95em'
+    } else {
+      return '0.65em'
+    }
+  }
+
+  const fontSize = getTextSize(size)
 
   // Calculate the radius and circumference based on the size
   const radius = (size / 2) - 5; // Subtract stroke width for accurate radius
@@ -58,7 +70,7 @@
     y="53%"
     dominant-baseline="middle"
     text-anchor="middle"
-    font-size="0.95em"
+    font-size={fontSize}
     fill={color}
     font-family="'Inconsolata', sans-serif"
   >

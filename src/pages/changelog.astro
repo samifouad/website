@@ -1,13 +1,13 @@
 ---
-export const prerender = true
+export const prerender = false
 
 import Layout from '../layouts/Page.astro'
-import Commit from '../components/Commit.svelte'
+import Commit from '../components/Commit.astro'
 import commits from '../../public/changelog/all_commits.json'
 
 //const projects = json.map((id) => id.default)
 
-console.log('commits: '+ commits)
+//console.log('commits: '+ commits)
 ---
 
 <Layout>
